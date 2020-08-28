@@ -18,15 +18,34 @@
 # @Author: guiguan
 # @Date:   2020-07-30T11:58:11+10:00
 # @Last modified by:   guiguan
-# @Last modified time: 2020-08-28T13:04:18+10:00
+# @Last modified time: 2020-08-28T18:15:19+10:00
+
+NAME := proofable-image
 
 all: build
 
-.PHONY: run build
+.PHONY: run build clean build-all build-image archive
 
 run:
 	go run . -output-dot-graph images/pineapple.png
 build:
 	go build .
-build-all:
-	go run src.techknowlogick.com/xgo --deps=https://gmplib.org/download/gmp/gmp-6.0.0a.tar.bz2 --targets=linux/amd64,windows/amd64,darwin/amd64 --pkg . github.com/SouthbankSoftware/proofable-image
+clean:
+	rm -f $(NAME)*
+	docker rmi -f $(NAME) 2> /dev/null
+build-all: build-image
+	go run src.techknowlogick.com/xgo -image=$(NAME) --targets=linux/amd64,windows/amd64,darwin/amd64 github.com/SouthbankSoftware/proofable-image
+build-image:
+ifeq ($(shell docker image inspect $(NAME) &> /dev/null; echo $$?),1)
+	docker build -t $(NAME) - < Dockerfile
+endif
+archive:
+	gtar -czvf $(NAME)_darwin_amd64.tar.gz \
+		--transform "flags=r;s|$(NAME)-darwin-10.6-amd64|$(NAME)|" \
+		--owner=root $(NAME)-darwin-10.6-amd64
+	gtar -czvf $(NAME)_linux_amd64.tar.gz \
+	--transform "flags=r;s|$(NAME)-linux-amd64|$(NAME)|" \
+	--owner=root $(NAME)-linux-amd64
+	cp $(NAME)-windows-4.0-amd64.exe $(NAME).exe
+	zip -r $(NAME)_windows_amd64.zip $(NAME).exe
+	rm $(NAME).exe

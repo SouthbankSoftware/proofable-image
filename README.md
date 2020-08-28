@@ -8,9 +8,58 @@ If you want to prove your file system, please try out the [Proofable CLI](https:
 
 If you want to build trust into your own application, please check out the [Proofable Framework](https://proofable.io/).
 
+## Installation
+
+### Download a prebuilt binary
+
+Following these steps to install the latest prebuilt binary into your current working directory, which is recommended.
+
+#### For macOS and Linux users
+
+Copy, paste and run the following bash command in a [macOS Terminal](https://support.apple.com/en-au/guide/terminal/welcome/mac):
+
+```zsh
+bash -c "$(eval "$(if [[ $(command -v curl) ]]; then echo "curl -fsSL"; else echo "wget -qO-"; fi) https://raw.githubusercontent.com/SouthbankSoftware/proofable-image/master/install.sh")"
+```
+
+#### For Windows users
+
+Copy, paste and run the following PowerShell command in a [PowerShell prompt](https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7):
+
+```zsh
+& ([ScriptBlock]::Create((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/SouthbankSoftware/proofable-image/master/install.ps1')))
+```
+
+### Build your own binary
+
+Install a global binary using `go get`:
+
+```zsh
+GO111MODULE=on go get github.com/SouthbankSoftware/proofable-image
+```
+
+Or clone this repo and build one:
+
+```zsh
+git clone https://github.com/SouthbankSoftware/proofable-image.git
+cd proofable-image
+make
+```
+
 ## Usage
 
-1. Download the binary for your system in [the GitHub Releases](). You can also build your own: `make`
-2. Create an access token
-3. Create an image certificate
-4. Verify an image against the certificate
+```zsh
+./proofable-image path/to/your/image.png
+```
+
+This will create an image certificate at `path/to/your/image.png.imgcert` if it doesn't exist yet, and verify the image against it. Then an image viewer will pop up to show any tampering. You can use the option `-imgcert-path` to test the certificate on another image:
+
+```zsh
+./proofable-image -imgcert-path=path/to/your/image.png.imgcert path/to/another/image.png
+```
+
+For all available options, please use:
+
+```zsh
+./proofable-image -h
+```
