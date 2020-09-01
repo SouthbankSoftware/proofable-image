@@ -2,7 +2,7 @@
 
 ![Proofable Image Screenshot](docs/proofable-image-screenshot.png)
 
-ProofableImage builds trust into your image by creating a blockchain certificate for it. The image certificate can not only prove the image as a whole but also prove the pixel boxes and the metadata inside it. For more details, please read through [this Medium post]().
+ProofableImage builds trust into your image by creating a blockchain certificate for it. The image certificate can not only prove the image as a whole but also prove the pixel boxes and the metadata inside it. For more details, please read through [this Medium post](https://medium.com/@guiguan/build-trust-into-image-with-blockchain-4894c39bde7f).
 
 If you want to prove your file system, please try out the [Proofable CLI](https://docs.proofable.io/cmd/proofable-cli/).
 
@@ -40,13 +40,19 @@ GO111MODULE=on go get github.com/SouthbankSoftware/proofable-image
 
 Or clone this repo and build one:
 
-```zsh
-git clone https://github.com/SouthbankSoftware/proofable-image.git
-cd proofable-image
-make
-```
+1. follow the [installation steps](https://gioui.org/doc/install) from Gio to setup the building environment
+
+2. build the binary from source:
+
+   ```zsh
+   git clone https://github.com/SouthbankSoftware/proofable-image.git
+   cd proofable-image
+   make
+   ```
 
 ## Usage
+
+For the first time when using ProofableImage, you will be asked to sign up/in to ProvenDB with your Google, Github, Facebook, or email account, so a free access token can be generated and saved locally for you. Then ProofableImage can pick up the token to access the Proofable API service in subsequent interactions.
 
 ```zsh
 ./proofable-image path/to/your/image.png
@@ -63,3 +69,9 @@ For all available options, please use:
 ```zsh
 ./proofable-image -h
 ```
+
+## FAQ
+
+### Linux error: `eglChooseConfig failed: 0x0`
+
+If you encounter this error in Linux, please make sure your graphics driver support OpenGL 3, which is required by the [Gio](https://gioui.org/). For example, the Linux installed in a Parallels Desktop VM only supports OpenGL 2 because of the limitation of the graphics driver provided by Parallels. By disabling the 3D acceleration, the Linux can then use the mesa-based software rendering instead, so OpenGL 3 APIs can be supported and ProofableImage can work as expected.

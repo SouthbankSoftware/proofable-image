@@ -19,7 +19,7 @@
  * @Author: guiguan
  * @Date:   2020-07-28T17:12:14+10:00
  * @Last modified by:   guiguan
- * @Last modified time: 2020-08-28T13:18:30+10:00
+ * @Last modified time: 2020-08-31T16:32:27+10:00
  */
 
 package main
@@ -61,10 +61,10 @@ type appState struct {
 	outputDotGraph    bool
 	distanceTolerance uint64
 
-	apiClient      apiPB.APIServiceClient
-	img            image.Image
-	proofImageSize image.Point
-	mismatches     []image.Point
+	apiClient   apiPB.APIServiceClient
+	img         image.Image
+	imgcertSize image.Point
+	mismatches  []image.Point
 }
 
 func main() {
@@ -107,7 +107,7 @@ func main() {
 	state.img = img
 
 getCert:
-	prfFile, err := os.Open(state.imgcertPath)
+	certFile, err := os.Open(state.imgcertPath)
 	if err != nil {
 		if os.IsNotExist(err) {
 			err := state.createImageCertificate(ctx)
@@ -122,10 +122,10 @@ getCert:
 
 		exitWithErr(err)
 	}
-	defer prfFile.Close()
+	defer certFile.Close()
 
 	// verify the image against the certificate
-	state.verifyImageProof(ctx, prfFile)
+	state.verifyImage(ctx, certFile)
 
 	// visualize the image tampering
 	go func() {

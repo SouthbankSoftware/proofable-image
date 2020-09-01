@@ -19,7 +19,7 @@
  * @Author: guiguan
  * @Date:   2020-07-30T00:25:21+10:00
  * @Last modified by:   guiguan
- * @Last modified time: 2020-08-28T13:04:31+10:00
+ * @Last modified time: 2020-08-31T16:32:46+10:00
  */
 
 package main
@@ -48,7 +48,7 @@ func unpackGRPCErr(err error) error {
 	return err
 }
 
-func (s *appState) verifyImageProof(ctx context.Context, prfFile io.Reader) {
+func (s *appState) verifyImage(ctx context.Context, prfFile io.Reader) {
 	colorcli.Printf("Verifying %s against image certificate %s...\n",
 		colorcli.Green(s.imagePath), colorcli.Green(s.imgcertPath))
 	var (
@@ -98,7 +98,7 @@ func (s *appState) verifyImageProof(ctx context.Context, prfFile io.Reader) {
 			return err
 		}
 
-		s.proofImageSize = metadata.ImageSize
+		s.imgcertSize = metadata.ImageSize
 
 		for kv := range kvCH {
 			count++
@@ -178,11 +178,11 @@ func (s *appState) verifyImageProof(ctx context.Context, prfFile io.Reader) {
 			int64(triePf.GetBlockTimeNano())).Format(time.UnixDate)),
 		colorcli.Green(triePf.GetTxnUri()))
 
-	// also add area not covered by proof as mismatches
+	// also add area not covered by certificate as mismatches
 	imageSize := s.imageSize()
 	numX, numY := getBoxNumX(imageSize.X), getBoxNumY(imageSize.Y)
 	numPfX, numPfY :=
-		getBoxNumX(s.proofImageSize.X), getBoxNumY(s.proofImageSize.Y)
+		getBoxNumX(s.imgcertSize.X), getBoxNumY(s.imgcertSize.Y)
 
 	for i := numPfX; i < numX; i++ {
 		for j := 0; j < numY; j++ {

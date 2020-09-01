@@ -19,7 +19,7 @@
  * @Author: guiguan
  * @Date:   2020-07-30T00:23:27+10:00
  * @Last modified by:   guiguan
- * @Last modified time: 2020-08-28T13:03:43+10:00
+ * @Last modified time: 2020-08-31T16:32:36+10:00
  */
 
 package main
@@ -49,7 +49,7 @@ func getImageDrawingSize(imgSize image.Point, containerSize image.Point) f32.Poi
 func (s *appState) drawImage(ops *op.Ops, containerSize image.Point) float32 {
 	imageSize := s.imageSize()
 	canvasSize := image.Pt(
-		max(imageSize.X, s.proofImageSize.X), max(imageSize.Y, s.proofImageSize.Y))
+		max(imageSize.X, s.imgcertSize.X), max(imageSize.Y, s.imgcertSize.Y))
 	drawingSize := getImageDrawingSize(canvasSize, containerSize)
 	clip.RRect{Rect: f32.Rect(0, 0, drawingSize.X, drawingSize.Y)}.Add(ops)
 
@@ -57,7 +57,7 @@ func (s *appState) drawImage(ops *op.Ops, containerSize image.Point) float32 {
 
 	paint.ColorOp{Color: color.RGBA{R: 232, G: 232, B: 232, A: 255}}.Add(ops)
 	paint.PaintOp{Rect: f32.Rect(0, 0,
-		float32(s.proofImageSize.X)*scale, float32(s.proofImageSize.Y)*scale)}.Add(ops)
+		float32(s.imgcertSize.X)*scale, float32(s.imgcertSize.Y)*scale)}.Add(ops)
 
 	imageOp := paint.NewImageOp(s.img)
 	imageOp.Add(ops)
