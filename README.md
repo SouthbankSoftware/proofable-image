@@ -52,7 +52,7 @@ Or clone this repo and build one:
 
 ## Usage
 
-For the first time when using ProofableImage, you will be asked to sign up/in to ProvenDB with your Google, Github, Facebook, or email account, so a free access token can be generated and saved locally for you. Then ProofableImage can pick up the token to access the Proofable API service in subsequent interactions.
+When using ProofableImage for the first time, you will be asked to sign up/in to ProvenDB with your Google, Github, Facebook, or email account, so a free access token can be generated and saved locally for you. Then ProofableImage can pick up the token to access the Proofable API service in subsequent interactions.
 
 ```zsh
 ./proofable-image path/to/your/image.png
