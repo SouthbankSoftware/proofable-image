@@ -75,3 +75,12 @@ For all available options, please use:
 ### Linux error: `eglChooseConfig failed: 0x0`
 
 If you encounter this error in Linux, please make sure your graphics driver support OpenGL 3, which is required by the [Gio](https://gioui.org/). For example, the Linux installed in a Parallels Desktop VM only supports OpenGL 2 because of the limitation of the graphics driver provided by Parallels. By disabling the 3D acceleration, the Linux can then use the mesa-based software rendering instead, so OpenGL 3 APIs can be supported and ProofableImage can work as expected.
+
+## Development
+
+### Publish new binaries
+
+1. `make build-all`
+2. `make archive`
+3. Create a GitHub release with the new version tag and binaires
+4. Update the versions in both `install.sh` and `install.ps1`

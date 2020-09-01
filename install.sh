@@ -3,7 +3,7 @@ set -eu
 
 PLATFORM=$(uname)
 INSTALL_PATH=${INSTALL_PATH:="$PWD"}
-VERSION=${VERSION:="v0.1.0"}
+VERSION=${VERSION:="v0.1.1"}
 
 OPTS=""
 

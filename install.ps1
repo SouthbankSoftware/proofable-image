@@ -1,4 +1,4 @@
-param($Version = "v0.1.0", $InstallPath = (Get-Location))
+param($Version = "v0.1.1", $InstallPath = (Get-Location))
 $ErrorActionPreference = "Stop"
 
 $zipFileName = "proofable-image_windows_amd64.zip"
