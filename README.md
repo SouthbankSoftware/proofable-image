@@ -4,7 +4,7 @@
 
 ProofableImage builds trust into your image by creating a blockchain certificate for it. The image certificate can not only prove the image as a whole but also prove the pixel boxes and the metadata inside it. For more details, please read through [this Medium post](https://medium.com/@guiguan/build-trust-into-image-with-blockchain-4894c39bde7f).
 
-If you want to prove your file system, please try out the [Proofable CLI](https://docs.proofable.io/cmd/proofable-cli/).
+If you want to prove your file system, please try out the [Proofable CLI](https://docs.proofable.io/cli/).
 
 If you want to build trust into your own application, please check out the [Proofable Framework](https://proofable.io/).
 
